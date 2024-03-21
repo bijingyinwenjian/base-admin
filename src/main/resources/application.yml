@@ -1,0 +1,71 @@
+server:
+  port: 8080
+
+spring:
+#  application:
+#    name: mall-tiny
+  profiles:
+    active: dev
+#  main:
+#    allow-circular-references: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:mysql://111.230.204.58:3307/photo-album?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: root
+  data:
+    redis:
+      host: 111.230.204.58 # Redis服务器地址
+      database: 0 # Redis数据库索引（默认为0）
+      port: 6377 # Redis服务器连接端口
+      password: Abc123 # Redis服务器连接密码（默认为空）
+      timeout: 3000ms # 连接超时时间（毫秒）
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+  configuration:
+    auto-mapping-behavior: partial
+    map-underscore-to-camel-case: true
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: mall-admin-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: 'Bearer '  #JWT负载中拿到开头
+
+redis:
+  database: photo
+  key:
+    admin: 'sys:admin'
+    resourceList: 'sys:resourceList'
+  expire:
+    common: 86400 # 24小时
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /
+      - /swagger-ui.html
+      - /swagger-ui/
+      - /*.html
+      - /favicon.ico
+      - /**/*.html
+      - /**/*.css
+      - /**/*.js
+      - /swagger-resources/**
+      - /v3/api-docs/**
+      - /actuator/**
+      - /druid/**
+      - /admin/login
+      - /admin/register
+      - /admin/info
+      - /admin/logout
+logging:
+  level:
+    root: info
+    com.sky: debug
